@@ -854,6 +854,7 @@ public class HTable implements HTableInterface, RegionLocator {
           controller.setPriority(tableName);
           controller.setCallTimeout(callTimeout);
           try {
+            // 调用RPC请求获取数据
             ClientProtos.GetResponse response = getStub().get(controller, request);
             if (response == null) return null;
             return ProtobufUtil.toResult(response.getResult());

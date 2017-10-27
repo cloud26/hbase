@@ -219,6 +219,7 @@ public class HTableMultiplexer {
       ClusterConnection conn = (ClusterConnection) getConnection();
       HRegionLocation loc = conn.getRegionLocation(tableName, put.getRow(), reloadCache);
       if (loc != null) {
+        // 这个getQueue函数中会为每个region server创建一个单例的FlushWorker，由它来消费queue中的put请求
         // Add the put pair into its corresponding queue.
         LinkedBlockingQueue<PutStatus> queue = getQueue(loc);
 
